@@ -2,6 +2,7 @@ import { Command } from 'commander';
 import * as fs from 'fs';
 import { capitalizeName, clearUnicodeCharacters } from 'diginext-utils/dist/string';
 import { makeSlug } from 'diginext-utils/dist/Slug';
+import path from 'path';
 
 const program = new Command();
 
@@ -61,22 +62,25 @@ const generateFileName = (name: any) => {
               };
           });
 
-    // console.log('pathPage :>> ', pathPages);
-
     await Promise.all(
         pathPages.map(({ name, nameComponent, fileName, page, component }) => {
             const contentPage = fs
-                .readFileSync('../templates/ts/0.1/pages/page-name.txt', 'utf-8')
-                .replace(/@@PAGE_FILE_NAME/g, name);
+                .readFileSync(
+                    path.resolve(__dirname, '../templates/ts/0.1/pages/page-name.txt'),
+                    'utf-8'
+                )
+                .replace(/@@PAGE_FILE_NAME/g, name)
+                .replace(/@@PATH_COMPONENT/g, component.replace('src/', '@/').replace('.tsx', ''));
+
             const contentComponent = fs
-                .readFileSync('../templates/ts/0.1/components/page-name.txt', 'utf-8')
+                .readFileSync(
+                    path.resolve(__dirname, '../templates/ts/0.1/components/page-name.txt'),
+                    'utf-8'
+                )
                 .replace(/@@PAGE_FILE_NAME/g, name);
 
             const pagePath = `${DIR_NAME}/${page}`.replace(`/${fileName}.tsx`, '');
             const componentPath = `${DIR_NAME}/${component}`.replace(`/${nameComponent}.tsx`, '');
-
-            // console.log('pagePath :>> ', pagePath);
-            // console.log('componentPath :>> ', componentPath);
 
             if (!fs.existsSync(pagePath)) {
                 fs.mkdirSync(pagePath, { recursive: true });
