@@ -1,7 +1,6 @@
-
-
+/* eslint-disable no-undef */
 module.exports = {
-	// "*.{js,jsx,ts,tsx}": ["eslint --fix"],
-	"**/*.ts?(x)": () => "pnpm check-types",
-	// "*.{json,yaml}": ["prettier --write"],
+    '*': () => ['npm run check-secret', 'npm run format'],
+    '**/*.ts?(x)': () => 'pnpm check-types',
+    // "*.{json,yaml}": ["prettier --write"],
 };
