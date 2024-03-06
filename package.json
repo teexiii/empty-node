@@ -1,6 +1,6 @@
 {
     "name": "template-node",
-    "version": "0.3.2",
+    "version": "0.3.3",
     "description": "An empty application created by [Diginext](https://diginext.site/?ref=cli).",
     "bin": {
         "template-node": "./dist/index.js"
