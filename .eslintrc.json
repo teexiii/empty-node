@@ -1,0 +1,20 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 2020,
+        "sourceType": "module"
+    },
+    "plugins": ["@typescript-eslint"],
+    "extends": ["eslint:recommended", "plugin:@typescript-eslint/eslint-recommended", "plugin:@typescript-eslint/recommended"],
+    "rules": {
+        // Define your project-specific rules here
+        "indent": ["error", 4], // Example rule: Use 2 spaces for indentation
+        "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }], // Ignore unused variables starting with _
+        "no-console": "off", // Considering it's a Node.js app, console statements might be used
+        "@typescript-eslint/no-unused-vars": "off"
+    },
+    "env": {
+        "node": true,
+        "es2020": true
+    }
+}

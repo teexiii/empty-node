@@ -1,6 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
+node_modules
 node_modules/
 optimizer/node_modules/
 optimizer/yarn.lock
@@ -16,6 +17,9 @@ optimizer/yarn.lock
 out/
 .next
 .next/
+
+dist
+esm
 
 # production
 /build
@@ -68,8 +72,6 @@ gcloud-service-account.json
 
 pnpm-lock.yaml
 
-dist
-build
-
 .temp
 temp
+

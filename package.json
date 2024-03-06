@@ -1,84 +1,65 @@
 {
-  "name": "new-page-nextjs",
-  "version": "0.0.1",
-  "description": "",
-  "main": "dist/index.js",
-  "bin": {
-    "np": "bin/np"
-  },
-  "scripts": {
-    "build": "npm run clean && tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
-    "dev": "npm run clean && nodemon",
-    "start": "node dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "check-types": "tsc --noEmit --pretty",
-    "prepare": "husky install",
-    "commit": "git add . && cz && git push origin -u",
-    "pkg-version": "npm pkg set version=$(echo $(git describe --tags $(git rev-list --tags --max-count=1)) | cut -c2-)",
-    "clean": "rimraf dist esm",
-    "semantic-release": "semantic-release"
-  },
-  "config": {
-    "commitizen": {
-      "path": "@commitlint/cz-commitlint"
+    "name": "template-node",
+    "version": "0.3.2",
+    "description": "An empty application created by [Diginext](https://diginext.site/?ref=cli).",
+    "bin": {
+        "template-node": "./dist/index.js"
+    },
+    "files": [
+        "dist",
+        "README.md"
+    ],
+    "main": "./dist/index.js",
+    "scripts": {
+        "test": "mocha test/*.test.js",
+        "build": "npm run clean && tsc -p tsconfig.json && tsc-alias -p tsconfig.json && npm run minjs",
+        "dev": "npm run clean && nodemon",
+        "start": "node dist/index.js",
+        "release": "npm run build && npm publish",
+        "format": "prettier src/**/*.{js,ts,tsx,json,yaml,css} --write ",
+        "check-types": "tsc --noEmit --pretty && tsc --noEmit --pretty",
+        "clean": "rimraf dist || exit 0",
+        "minjs": "uglifyjs-folder dist -e -x .js -o dist",
+        "prepare": "husky"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@types/node": "^20.11.24",
+        "@typescript-eslint/eslint-plugin": "^7.1.1",
+        "@typescript-eslint/parser": "^7.1.1",
+        "chalk": "4.1.2",
+        "commander": "^12.0.0",
+        "diginext-utils": "^3.11.3",
+        "eslint": "^8.57.0",
+        "eslint-plugin-import": "^2.29.1",
+        "husky": "^9.0.11",
+        "mocha": "^10.3.0",
+        "nodemon": "^3.1.0",
+        "prettier": "^3.2.5",
+        "prompts": "^2.4.2",
+        "rimraf": "^5.0.5",
+        "ts-node": "^10.9.2",
+        "tsc-alias": "^1.8.8",
+        "typescript": "^5.3.3",
+        "uglifyjs-folder": "^3.3.0"
+    },
+    "nodemonConfig": {
+        "watch": [
+            "src"
+        ],
+        "exec": "pnpm tsc -p tsconfig.json && pnpm tsc-alias -p tsconfig.json",
+        "ext": "js,json,ts,tsx",
+        "ignore": [
+            "node_modules",
+            "dist",
+            "build",
+            "esm",
+            "*.log"
+        ],
+        "env": {
+            "NODE_ENV": "local"
+        }
     }
-  },
-  "release": {
-    "branches": [
-      "main",
-      {
-        "name": "beta",
-        "prerelease": true
-      }
-    ],
-    "plugins": [
-      "@semantic-release/commit-analyzer",
-      "@semantic-release/release-notes-generator",
-      "@semantic-release/changelog",
-      "@semantic-release/git"
-    ]
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@commitlint/cz-commitlint": "^17.5.0",
-    "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/commit-analyzer": "^9.0.2",
-    "@semantic-release/git": "^10.0.1",
-    "@semantic-release/release-notes-generator": "^10.0.3",
-    "@types/node": "^18.16.0",
-    "esm": "^3.2.25",
-    "husky": "^8.0.0",
-    "lint-staged": "^13.2.1",
-    "nodemon": "^2.0.22",
-    "semantic-release": "^21.0.1",
-    "ts-node": "^10.9.1",
-    "ts-node-dev": "^2.0.0",
-    "tsc-alias": "^1.8.6",
-    "typescript": "^4.9.5"
-  },
-  "dependencies": {
-    "@commitlint/cli": "^17.6.1",
-    "@commitlint/config-conventional": "^17.6.1",
-    "commander": "^11.0.0",
-    "commitizen": "^4.3.0"
-  },
-  "nodemonConfig": {
-    "watch": [
-      "src"
-    ],
-    "exec": "pnpm tsc -p tsconfig.json && pnpm tsc-alias -p tsconfig.json",
-    "ext": "js,json,ts,tsx",
-    "ignore": [
-      "node_modules",
-      "dist",
-      "build",
-      "esm",
-      "*.log"
-    ],
-    "env": {
-      "NODE_ENV": "local"
-    }
-  }
 }
